@@ -1,4 +1,5 @@
-# Exploring Urban Semantics: A Multimodal Model for POI Semantic Annotation with Street View Images and Place Names
+# Exploring Urban Semantics: A Multimodal Model for POI Semantic Annotation
+with Street View Images and Place Names
 
 These are the source codes for the **M3PA** model and its corresponding data.
 
