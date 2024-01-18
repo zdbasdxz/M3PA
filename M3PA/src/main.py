@@ -93,7 +93,7 @@ def training(args):
 
     for param in model.geobert.parameters():
         param.requires_grad = False
-    optim = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=5E-5)
+    optim = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=5E-5)
 
     print('start training...')
     print("save_model_path:")
@@ -163,7 +163,7 @@ def test(test_loader, model, device, epoch, base_result_outdir,l):
     print("save_result_path:")
     print(base_result_outdir)
     if not os.path.exists(base_result_outdir):
-        # 目录不存在，进行创建操作
+
         os.makedirs(base_result_outdir)
     header = ('l', 'epoch', 'Accuracy', 'F1-score', 'MRR')
     with open(base_result_outdir + 'result.csv', 'a', newline='') as f:
@@ -234,14 +234,14 @@ def plt_batch(args, lists):
     plt.xlabel('epoch')
     plt.legend(['train'], loc='upper right')
     if not os.path.exists(args.base_result_image_outdir):
-        # 目录不存在，进行创建操作
+
         os.makedirs(args.base_result_image_outdir)
     plt.savefig(args.base_result_image_outdir + str(args.l) + ".png")
     plt.close()
 class Config(object):
     PATH = os.path.dirname(os.path.realpath(__file__))
     PATH = PATH.replace('\\', '/')
-    id_dataset = 'haidian'
+    id_dataset = 'lixia'
     if id_dataset == "lixia":
         max_token_len_dcit = {
             15: 300,
@@ -266,10 +266,12 @@ class Config(object):
     base_result_image_outdir = PATH[:-3] + "result/image/" + id_dataset + "/"
     if id_dataset == "lixia":
         num_classes = 140
+
     elif id_dataset == "haidian":
         num_classes = 248
+    lr=0.0001
     num_workers = 1
-    device = torch.device('cuda:0')
+    device = torch.device('cuda:1')
 if __name__ == '__main__':
     myconfig = Config()
 
